@@ -17,6 +17,7 @@ import org.eclipse.glsp.graph.GGraph;
 import org.eclipse.glsp.graph.GModelElement;
 import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.Class;
+import org.eclipse.uml2.uml.Enumeration;
 import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Relationship;
@@ -37,6 +38,8 @@ public class UmlClassDiagramModelFactory extends GModelFactory {
          result = create(semanticElement);
       } else if (semanticElement instanceof Class) {
          result = classifierNodeFactory.create((Class) semanticElement);
+      } else if (semanticElement instanceof Enumeration) {
+         result = classifierNodeFactory.create((Enumeration) semanticElement);
       } else if (semanticElement instanceof Relationship) {
          result = relationshipEdgeFactory.create((Relationship) semanticElement);
       } else if (semanticElement instanceof NamedElement) {
@@ -66,6 +69,12 @@ public class UmlClassDiagramModelFactory extends GModelFactory {
          graph.getChildren().addAll(umlModel.getPackagedElements().stream() //
             .filter(Association.class::isInstance)//
             .map(Association.class::cast)//
+            .map(this::create)//
+            .collect(Collectors.toList()));
+
+         graph.getChildren().addAll(umlModel.getPackagedElements().stream() //
+            .filter(Enumeration.class::isInstance)//
+            .map(Enumeration.class::cast)//
             .map(this::create)//
             .collect(Collectors.toList()));
       }

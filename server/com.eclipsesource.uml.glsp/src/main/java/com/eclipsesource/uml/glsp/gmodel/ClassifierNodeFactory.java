@@ -23,6 +23,7 @@ import org.eclipse.glsp.graph.util.GConstants;
 import org.eclipse.glsp.graph.util.GraphUtil;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
+import org.eclipse.uml2.uml.Enumeration;
 import org.eclipse.uml2.uml.Property;
 
 import com.eclipsesource.uml.glsp.model.UmlModelState;
@@ -43,6 +44,8 @@ public class ClassifierNodeFactory extends AbstractGModelFactory<Classifier, GNo
    public GNode create(final Classifier classifier) {
       if (classifier instanceof Class) {
          return create((Class) classifier);
+      } else if (classifier instanceof Enumeration) {
+         return create((Enumeration) classifier);
       }
       return null;
    }
@@ -93,9 +96,54 @@ public class ClassifierNodeFactory extends AbstractGModelFactory<Classifier, GNo
          .build();
    }
 
+   protected GNode create(final Enumeration umlEnnumeration) {
+      GNodeBuilder b = new GNodeBuilder(Types.ENUMERATION) //
+         .id(toId(umlEnnumeration)) //
+         .layout(GConstants.Layout.VBOX) //
+         .addCssClass(CSS.NODE) //
+         .add(buildHeader(umlEnnumeration));//
+      // .add(createLabeledChildrenCompartment(umlEnnumeration.getOwnedLiterals(), umlEnnumeration));
+
+      applyShapeData(umlEnnumeration, b);
+      return b.build();
+   }
+
+   protected GCompartment buildHeader(final Enumeration umlEnumeration) {
+      return new GCompartmentBuilder(Types.COMP_HEADER) //
+         .layout("vbox") //
+         .id(toId(umlEnumeration) + "_header")
+         .add(new GLabelBuilder(Types.LABEL_TEXT)//
+            .id(toId(umlEnumeration) + "_header_text").text("<<" + Enumeration.class.getSimpleName() + ">>")//
+            .build())
+         .add(new GCompartmentBuilder(getType(umlEnumeration)) //
+            .layout("hbox")
+            .add(new GCompartmentBuilder(getType(umlEnumeration))
+               .id(toId(umlEnumeration) + "_header_icon").build()) //
+            .add(new GLabelBuilder(Types.LABEL_NAME)
+               .id(toId(umlEnumeration) + "_header_label").text(umlEnumeration.getName()) //
+               .build()) //
+            .build())//
+         .build();
+   }
+
+   // protected GCompartment createLabeledChildrenCompartment(final Collection<? extends Property> children,
+   // final Classifier parent) {
+   // return new GCompartmentBuilder(Types.COMP) //
+   // .id(toId(parent) + "_childCompartment").layout(GConstants.Layout.VBOX) //
+   // .layoutOptions(new GLayoutOptions() //
+   // .hAlign(GConstants.HAlign.LEFT) //
+   // .resizeContainer(true)) //
+   // .addAll(children.stream() //
+   // .map(parentFactory::create) //
+   // .collect(Collectors.toList()))
+   // .build();
+   // }
+
    protected static String getType(final Classifier classifier) {
       if (classifier instanceof Class) {
          return Types.ICON_CLASS;
+      } else if (classifier instanceof Enumeration) {
+         return Types.ICON_ENUMERATION;
       }
       return "Classifier not found";
    }

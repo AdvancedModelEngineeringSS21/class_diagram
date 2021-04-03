@@ -42,6 +42,7 @@ import com.eclipsesource.uml.modelserver.UmlModelServerClient;
 import com.eclipsesource.uml.modelserver.UmlNotationUtil;
 import com.eclipsesource.uml.modelserver.commands.contributions.AddAssociationCommandContribution;
 import com.eclipsesource.uml.modelserver.commands.contributions.AddClassCommandContribution;
+import com.eclipsesource.uml.modelserver.commands.contributions.AddEnumerationCommandContribution;
 import com.eclipsesource.uml.modelserver.commands.contributions.AddPropertyCommandContribution;
 import com.eclipsesource.uml.modelserver.commands.contributions.ChangeBoundsCommandContribution;
 import com.eclipsesource.uml.modelserver.commands.contributions.ChangeRoutingPointsCommandContribution;
@@ -132,6 +133,16 @@ public class UmlModelServerAccess {
       CCompoundCommand addClassCompoundCommand = AddClassCommandContribution
          .create(newPosition.orElse(GraphUtil.point(0, 0)));
       return this.edit(addClassCompoundCommand);
+   }
+
+   /*
+    * UML Enumeration
+    */
+   public CompletableFuture<Response<Boolean>> addEnumeration(final UmlModelState modelState,
+      final Optional<GPoint> newPosition) {
+      CCompoundCommand addEnumerationCompoundCommand = AddEnumerationCommandContribution
+         .create(newPosition.orElse(GraphUtil.point(0, 0)));
+      return this.edit(addEnumerationCompoundCommand);
    }
 
    public CompletableFuture<Response<Boolean>> removeClass(final UmlModelState modelState,

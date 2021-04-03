@@ -55,3 +55,8 @@
 .umlproperty {
     background-image: var(--uml-icon-property);
 }
+
+.umlenumeration {
+    /* TODO change enum icon later */
+    background-image: var(--uml-icon-class);
+}
