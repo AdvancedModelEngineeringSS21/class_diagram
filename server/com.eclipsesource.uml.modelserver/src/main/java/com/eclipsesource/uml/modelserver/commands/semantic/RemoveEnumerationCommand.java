@@ -13,27 +13,23 @@ package com.eclipsesource.uml.modelserver.commands.semantic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.uml2.uml.Enumeration;
-import org.eclipse.uml2.uml.UMLFactory;
 
 import com.eclipsesource.uml.modelserver.commands.util.UmlSemanticCommandUtil;
 
-public class AddEnumerationCommand extends UmlSemanticElementCommand {
+public class RemoveEnumerationCommand extends UmlSemanticElementCommand {
 
-   protected final Enumeration newEnumeration;
+   protected final String semanticUriFragment;
 
-   public AddEnumerationCommand(final EditingDomain domain, final URI modelUri, final Enumeration newEnumeration) {
+   public RemoveEnumerationCommand(final EditingDomain domain, final URI modelUri, final String semanticUriFragment) {
       super(domain, modelUri);
-      this.newEnumeration = newEnumeration;
-   }
-
-   public AddEnumerationCommand(final EditingDomain domain, final URI modelUri) {
-      this(domain, modelUri, UMLFactory.eINSTANCE.createEnumeration());
+      this.semanticUriFragment = semanticUriFragment;
    }
 
    @Override
    protected void doExecute() {
-      newEnumeration.setName(UmlSemanticCommandUtil.getNewEnumerationName(umlModel));
-      umlModel.getPackagedElements().add(newEnumeration);
+      Enumeration enumerationToRemove = UmlSemanticCommandUtil.getElement(umlModel, semanticUriFragment,
+         Enumeration.class);
+      umlModel.getPackagedElements().remove(enumerationToRemove);
    }
 
 }

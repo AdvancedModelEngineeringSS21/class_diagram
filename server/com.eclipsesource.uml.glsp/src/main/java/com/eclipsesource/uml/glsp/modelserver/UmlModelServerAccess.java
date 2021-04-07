@@ -33,6 +33,7 @@ import org.eclipse.glsp.server.types.ElementAndBounds;
 import org.eclipse.glsp.server.types.ElementAndRoutingPoints;
 import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.Class;
+import org.eclipse.uml2.uml.Enumeration;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.resource.UMLResource;
@@ -48,10 +49,12 @@ import com.eclipsesource.uml.modelserver.commands.contributions.ChangeBoundsComm
 import com.eclipsesource.uml.modelserver.commands.contributions.ChangeRoutingPointsCommandContribution;
 import com.eclipsesource.uml.modelserver.commands.contributions.RemoveAssociationCommandContribution;
 import com.eclipsesource.uml.modelserver.commands.contributions.RemoveClassCommandContribution;
+import com.eclipsesource.uml.modelserver.commands.contributions.RemoveEnumerationCommandContribution;
 import com.eclipsesource.uml.modelserver.commands.contributions.RemovePropertyCommandContribution;
 import com.eclipsesource.uml.modelserver.commands.contributions.SetAssociationEndMultiplicityCommandContribution;
 import com.eclipsesource.uml.modelserver.commands.contributions.SetAssociationEndNameCommandContribution;
 import com.eclipsesource.uml.modelserver.commands.contributions.SetClassNameCommandContribution;
+import com.eclipsesource.uml.modelserver.commands.contributions.SetEnumerationNameCommandContribution;
 import com.eclipsesource.uml.modelserver.commands.contributions.SetPropertyCommandContribution;
 import com.eclipsesource.uml.modelserver.unotation.Edge;
 import com.eclipsesource.uml.modelserver.unotation.Shape;
@@ -159,6 +162,22 @@ public class UmlModelServerAccess {
       CCommand setClassNameCommand = SetClassNameCommandContribution.create(getSemanticUriFragment(classToRename),
          newName);
       return this.edit(setClassNameCommand);
+   }
+
+   public CompletableFuture<Response<Boolean>> setEnumerationName(final UmlModelState modelState,
+      final Enumeration enumerationToRename, final String newName) {
+      CCommand setEnumerationNameCommand = SetEnumerationNameCommandContribution.create(getSemanticUriFragment(enumerationToRename),
+         newName);
+      return this.edit(setEnumerationNameCommand);
+   }
+
+   public CompletableFuture<Response<Boolean>> removeEnumeration(final UmlModelState modelState,
+      final Enumeration enumerationToRemove) {
+
+      String semanticProxyUri = getSemanticUriFragment(enumerationToRemove);
+      CCompoundCommand compoundCommand = RemoveEnumerationCommandContribution.create(semanticProxyUri);
+      return this.edit(compoundCommand);
+
    }
 
    /*
