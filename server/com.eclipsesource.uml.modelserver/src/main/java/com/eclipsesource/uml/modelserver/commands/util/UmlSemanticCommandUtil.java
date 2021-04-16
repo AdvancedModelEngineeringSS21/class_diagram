@@ -26,6 +26,7 @@ import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.DataType;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Enumeration;
+import org.eclipse.uml2.uml.EnumerationLiteral;
 import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.PackageableElement;
@@ -131,6 +132,10 @@ public final class UmlSemanticCommandUtil {
          result = multiplicityString.split(multiplicityRegex())[index];
       }
       return result.isEmpty() ? 1 : (result.equals("*") ? -1 : Integer.parseInt(result, 10));
+   }
+
+   public static String getNewEnumerationLiteralName(final Model umlModel) {
+      return UmlSemanticCommandUtil.getNewPackageableElementName(EnumerationLiteral.class, umlModel);
    }
 
 }

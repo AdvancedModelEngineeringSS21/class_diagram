@@ -73,8 +73,7 @@ export class IconClass extends Icon {
 }
 
 export class IconEnumeration extends Icon {
-    // TODO: need to add svg image.
-    iconImageName = "Class.svg";
+    iconImageName = "Enumeration.svg";
 }
 
 export class SLabelNode extends SLabel implements EditableLabel {

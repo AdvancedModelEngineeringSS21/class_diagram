@@ -56,7 +56,10 @@
     background-image: var(--uml-icon-property);
 }
 
+.umlenumerationliteral {
+    background-image: var(--uml-icon-enumerationliteral);
+}
+
 .umlenumeration {
-    /* TODO change enum icon later */
-    background-image: var(--uml-icon-class);
+    background-image: var(--uml-icon-enumeration);
 }

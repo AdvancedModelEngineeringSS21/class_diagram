@@ -24,6 +24,7 @@ import org.eclipse.glsp.graph.util.GraphUtil;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Enumeration;
+import org.eclipse.uml2.uml.EnumerationLiteral;
 import org.eclipse.uml2.uml.Property;
 
 import com.eclipsesource.uml.glsp.model.UmlModelState;
@@ -101,8 +102,8 @@ public class ClassifierNodeFactory extends AbstractGModelFactory<Classifier, GNo
          .id(toId(umlEnnumeration)) //
          .layout(GConstants.Layout.VBOX) //
          .addCssClass(CSS.NODE) //
-         .add(buildHeader(umlEnnumeration));//
-      // .add(createLabeledChildrenCompartment(umlEnnumeration.getOwnedLiterals(), umlEnnumeration));
+         .add(buildHeader(umlEnnumeration))//
+         .add(createLabeledChildrenCompartment(umlEnnumeration.getOwnedLiterals(), umlEnnumeration));
 
       applyShapeData(umlEnnumeration, b);
       return b.build();
@@ -110,7 +111,7 @@ public class ClassifierNodeFactory extends AbstractGModelFactory<Classifier, GNo
 
    protected GCompartment buildHeader(final Enumeration umlEnumeration) {
       return new GCompartmentBuilder(Types.COMP_HEADER) //
-         .layout("vbox") //
+         .layout(GConstants.Layout.VBOX) //
          .id(toId(umlEnumeration) + "_header")
          .add(new GLabelBuilder(Types.LABEL_TEXT)//
             .id(toId(umlEnumeration) + "_header_text").text("<<" + Enumeration.class.getSimpleName() + ">>")//
@@ -126,18 +127,19 @@ public class ClassifierNodeFactory extends AbstractGModelFactory<Classifier, GNo
          .build();
    }
 
-   // protected GCompartment createLabeledChildrenCompartment(final Collection<? extends Property> children,
-   // final Classifier parent) {
-   // return new GCompartmentBuilder(Types.COMP) //
-   // .id(toId(parent) + "_childCompartment").layout(GConstants.Layout.VBOX) //
-   // .layoutOptions(new GLayoutOptions() //
-   // .hAlign(GConstants.HAlign.LEFT) //
-   // .resizeContainer(true)) //
-   // .addAll(children.stream() //
-   // .map(parentFactory::create) //
-   // .collect(Collectors.toList()))
-   // .build();
-   // }
+   protected GCompartment createLabeledChildrenCompartment(final Collection<? extends EnumerationLiteral> children,
+      final Enumeration parent) {
+      return new GCompartmentBuilder(Types.COMP) //
+         .layout(GConstants.Layout.VBOX) //
+         .id(toId(parent) + "_childCompartment")
+         .layoutOptions(new GLayoutOptions() //
+            .hAlign(GConstants.HAlign.LEFT) //
+            .resizeContainer(true)) //
+         .addAll(children.stream() //
+            .map(parentFactory::create) //
+            .collect(Collectors.toList()))
+         .build();
+   }
 
    protected static String getType(final Classifier classifier) {
       if (classifier instanceof Class) {

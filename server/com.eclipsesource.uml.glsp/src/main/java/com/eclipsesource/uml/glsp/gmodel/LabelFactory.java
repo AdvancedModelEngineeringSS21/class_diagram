@@ -12,6 +12,7 @@ package com.eclipsesource.uml.glsp.gmodel;
 
 import org.eclipse.glsp.graph.GLabel;
 import org.eclipse.glsp.graph.builder.impl.GLabelBuilder;
+import org.eclipse.uml2.uml.EnumerationLiteral;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Property;
 
@@ -29,6 +30,8 @@ public class LabelFactory extends AbstractGModelFactory<NamedElement, GLabel> {
    public GLabel create(final NamedElement namedElement) {
       if (namedElement instanceof Property) {
          return create((Property) namedElement);
+      } else if (namedElement instanceof EnumerationLiteral) {
+         return create((EnumerationLiteral) namedElement);
       }
       return null;
    }
@@ -40,6 +43,15 @@ public class LabelFactory extends AbstractGModelFactory<NamedElement, GLabel> {
 
       return new GLabelBuilder(Types.PROPERTY) //
          .id(toId(property))//
+         .text(label) //
+         .build();
+   }
+
+   public GLabel create(final EnumerationLiteral enumerationLiteral) {
+      String label = enumerationLiteral.getName();//
+
+      return new GLabelBuilder(Types.ENUMERATION_LITERAL) //
+         .id(toId(enumerationLiteral))//
          .text(label) //
          .build();
    }

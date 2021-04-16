@@ -10,6 +10,7 @@
  ********************************************************************************/
 package com.eclipsesource.uml.glsp.util;
 
+import org.eclipse.uml2.uml.EnumerationLiteral;
 import org.eclipse.uml2.uml.Property;
 
 public class UmlLabelUtil {
@@ -27,6 +28,13 @@ public class UmlLabelUtil {
          return String.format(" [%s]", property.getUpper() == -1 ? "*" : property.getUpper());
       }
       return String.format(" [%s..%s]", property.getLower(), property.getUpper() == -1 ? "*" : property.getUpper());
+   }
+
+   public static String getTypeName(final EnumerationLiteral enumerationLiteral) {
+      if (enumerationLiteral != null) {
+         return enumerationLiteral.getName();
+      }
+      return "";
    }
 
 }

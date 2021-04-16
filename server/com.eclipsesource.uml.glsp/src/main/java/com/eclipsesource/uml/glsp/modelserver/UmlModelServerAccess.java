@@ -44,6 +44,7 @@ import com.eclipsesource.uml.modelserver.UmlNotationUtil;
 import com.eclipsesource.uml.modelserver.commands.contributions.AddAssociationCommandContribution;
 import com.eclipsesource.uml.modelserver.commands.contributions.AddClassCommandContribution;
 import com.eclipsesource.uml.modelserver.commands.contributions.AddEnumerationCommandContribution;
+import com.eclipsesource.uml.modelserver.commands.contributions.AddEnumerationLiteralCommandContribution;
 import com.eclipsesource.uml.modelserver.commands.contributions.AddPropertyCommandContribution;
 import com.eclipsesource.uml.modelserver.commands.contributions.ChangeBoundsCommandContribution;
 import com.eclipsesource.uml.modelserver.commands.contributions.ChangeRoutingPointsCommandContribution;
@@ -166,7 +167,8 @@ public class UmlModelServerAccess {
 
    public CompletableFuture<Response<Boolean>> setEnumerationName(final UmlModelState modelState,
       final Enumeration enumerationToRename, final String newName) {
-      CCommand setEnumerationNameCommand = SetEnumerationNameCommandContribution.create(getSemanticUriFragment(enumerationToRename),
+      CCommand setEnumerationNameCommand = SetEnumerationNameCommandContribution.create(
+         getSemanticUriFragment(enumerationToRename),
          newName);
       return this.edit(setEnumerationNameCommand);
    }
@@ -188,6 +190,17 @@ public class UmlModelServerAccess {
 
       CCommand addPropertyCommand = AddPropertyCommandContribution.create(getSemanticUriFragment(parentClass));
       return this.edit(addPropertyCommand);
+   }
+
+   /*
+    * UML Enumeration Literal
+    */
+   public CompletableFuture<Response<Boolean>> addEnumerationLiteral(final UmlModelState modelState,
+      final Enumeration parentEnumeration) {
+
+      CCommand addEnumerationLiteralCommand = AddEnumerationLiteralCommandContribution
+         .create(getSemanticUriFragment(parentEnumeration));
+      return this.edit(addEnumerationLiteralCommand);
    }
 
    public CompletableFuture<Response<Boolean>> removeProperty(final UmlModelState modelState,
