@@ -26,3 +26,4 @@ export namespace UmlTypes {
     export const ENUMERATION_LITERAL = `${BaseTypes.NODE}:enumerationliteral`;
 
 }
+

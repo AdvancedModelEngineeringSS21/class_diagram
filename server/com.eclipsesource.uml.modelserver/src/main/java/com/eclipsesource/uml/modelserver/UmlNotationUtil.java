@@ -18,6 +18,26 @@ public final class UmlNotationUtil {
 
    public static final String NOTATION_EXTENSION = "unotation";
 
-   public static final String CLASS_REPRESENTATION = Representation.CLASS.getLiteral();
+   public static Representation getRepresentation(final String diagramType) {
+      switch (diagramType.toLowerCase()) {
+         case "activity":
+            return Representation.ACTIVITY;
+         case "class":
+            return Representation.CLASS;
+         case "component":
+            return Representation.COMPONENT;
+         case "deployment":
+            return Representation.DEPLOYMENT;
+         case "package":
+            return Representation.PACKAGE;
+         case "sequence":
+            return Representation.SEQUENCE;
+         case "statemachine":
+            return Representation.STATEMACHINE;
+         case "usecase":
+            return Representation.USECASE;
+      }
+      return Representation.CLASS;
+   }
 
 }

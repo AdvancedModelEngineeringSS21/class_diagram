@@ -56,10 +56,10 @@
     background-image: var(--uml-icon-property);
 }
 
-.umlenumerationliteral {
-    background-image: var(--uml-icon-enumerationliteral);
-}
-
 .umlenumeration {
     background-image: var(--uml-icon-enumeration);
+}
+
+.umlenumerationliteral {
+    background-image: var(--uml-icon-enumerationliteral);
 }

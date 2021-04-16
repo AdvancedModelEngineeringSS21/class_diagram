@@ -17,25 +17,29 @@ import org.eclipse.emfcloud.modelserver.command.CCommand;
 import org.eclipse.emfcloud.modelserver.command.CCommandFactory;
 import org.eclipse.emfcloud.modelserver.common.codecs.DecodingException;
 
-import com.eclipsesource.uml.modelserver.commands.semantic.AddEnumerationLiteralCommand;
+import com.eclipsesource.uml.modelserver.commands.semantic.SetEnumerationLiteralNameCommand;
 
-public class AddEnumerationLiteralCommandContribution extends UmlSemanticCommandContribution {
+public class SetEnumerationLiteralCommandContribution extends UmlSemanticCommandContribution {
 
-   public static final String TYPE = "addEnumerationLiteralContributuion";
+   public static final String TYPE = "setEnumerationLiteral";
+   public static final String NEW_NAME = "newName";
 
-   public static CCommand create(final String parentSemanticUri) {
-      CCommand addEnumerationLiteralCommand = CCommandFactory.eINSTANCE.createCommand();
-      addEnumerationLiteralCommand.setType(TYPE);
-      addEnumerationLiteralCommand.getProperties().put(PARENT_SEMANTIC_URI_FRAGMENT, parentSemanticUri);
-      return addEnumerationLiteralCommand;
+   public static CCommand create(final String semanticUri, final String newName) {
+      CCommand setEnumLiteralCommand = CCommandFactory.eINSTANCE.createCommand();
+      setEnumLiteralCommand.setType(TYPE);
+      setEnumLiteralCommand.getProperties().put(SEMANTIC_URI_FRAGMENT, semanticUri);
+      setEnumLiteralCommand.getProperties().put(NEW_NAME, newName);
+      return setEnumLiteralCommand;
    }
 
    @Override
    protected Command toServer(final URI modelUri, final EditingDomain domain, final CCommand command)
       throws DecodingException {
 
-      String parentSemanticUriFragment = command.getProperties().get(PARENT_SEMANTIC_URI_FRAGMENT);
-      return new AddEnumerationLiteralCommand(domain, modelUri, parentSemanticUriFragment);
+      String semanticUriFragment = command.getProperties().get(SEMANTIC_URI_FRAGMENT);
+      String newName = command.getProperties().get(NEW_NAME);
+
+      return new SetEnumerationLiteralNameCommand(domain, modelUri, semanticUriFragment, newName);
    }
 
 }

@@ -89,3 +89,4 @@ export class SLabelNode extends SLabel implements EditableLabel {
 export class SLabelNodeProperty extends SLabelNode {
     imageName = "Property.svg";
 }
+

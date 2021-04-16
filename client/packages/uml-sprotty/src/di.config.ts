@@ -94,10 +94,9 @@ export default (containerId: string): Container => {
         configureModelElement(context, BaseTypes.ROUTING_POINT, SRoutingHandle, SRoutingHandleView);
         configureModelElement(context, BaseTypes.VOLATILE_ROUTING_POINT, SRoutingHandle, SRoutingHandleView);
         configureModelElement(context, UmlTypes.ASSOCIATION, SEdge, PolylineEdgeView);
-        configureModelElement(context, UmlTypes.ENUMERATION, LabeledNode, EnumerationNodeView);
         configureModelElement(context, UmlTypes.ICON_ENUMERATION, IconEnumeration, IconView);
+        configureModelElement(context, UmlTypes.ENUMERATION, LabeledNode, EnumerationNodeView);
         configureModelElement(context, UmlTypes.ENUMERATION_LITERAL, SLabelNodeProperty, LabelNodeView);
-
         configureViewerOptions(context, {
             needsClientLayout: true,
             baseDiv: containerId
@@ -114,3 +113,4 @@ export default (containerId: string): Container => {
     return container;
 
 };
+

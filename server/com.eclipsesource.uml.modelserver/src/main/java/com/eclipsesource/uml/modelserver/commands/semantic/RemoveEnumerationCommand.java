@@ -20,7 +20,8 @@ public class RemoveEnumerationCommand extends UmlSemanticElementCommand {
 
    protected final String semanticUriFragment;
 
-   public RemoveEnumerationCommand(final EditingDomain domain, final URI modelUri, final String semanticUriFragment) {
+   public RemoveEnumerationCommand(final EditingDomain domain, final URI modelUri,
+      final String semanticUriFragment) {
       super(domain, modelUri);
       this.semanticUriFragment = semanticUriFragment;
    }

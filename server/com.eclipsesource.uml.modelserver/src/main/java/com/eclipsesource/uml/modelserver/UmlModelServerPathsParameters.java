@@ -8,16 +8,12 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR MIT
  ********************************************************************************/
-package com.eclipsesource.uml.glsp.util;
+package com.eclipsesource.uml.modelserver;
 
-import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emfcloud.modelserver.common.ModelServerPathParametersV1;
 
-public final class UmlEdgeUtil {
+public interface UmlModelServerPathsParameters extends ModelServerPathParametersV1 {
 
-   private UmlEdgeUtil() {}
-
-   public static String getStringId(final EReference reference) {
-      return Integer.toString(reference.hashCode());
-   }
+   String DIAGRAM_TYPE = "diagramtype";
 
 }

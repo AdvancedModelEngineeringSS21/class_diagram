@@ -10,6 +10,7 @@
  ********************************************************************************/
 /** @jsx svg */
 /* eslint-disable react/jsx-key */
+import { SLabel } from "@eclipse-glsp/client";
 import { injectable } from "inversify";
 import { svg } from "snabbdom-jsx";
 import { VNode } from "snabbdom/vnode";
@@ -40,8 +41,13 @@ export class ClassNodeView extends RectangularNodeView {
 @injectable()
 export class EnumerationNodeView extends RectangularNodeView {
     render(node: LabeledNode, context: RenderingContext): VNode {
-        const rhombStr = "M 0,38  L " + node.bounds.width + ",38";
+        const rhombStr = "M 0,68  L " + node.bounds.width + ",68";
 
+        if (node.children[0].children[0] instanceof SLabel) {
+            const enumTypeLabel = node.children[0].children[0] as SLabel;
+            const enumText = enumTypeLabel.text;
+            enumTypeLabel.text = enumText.replace("<<", "«").replace(">>", "»");
+        }
         return <g class-node={true} class-selected={node.selected} class-mouseover={node.hoverFeedback}>
             <defs>
                 <filter id="dropShadow">

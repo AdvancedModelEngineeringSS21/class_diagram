@@ -22,14 +22,11 @@ import com.eclipsesource.uml.modelserver.commands.semantic.AddEnumerationCommand
 
 public class AddEnumerationCompoundCommand extends CompoundCommand {
 
-   public AddEnumerationCompoundCommand(final EditingDomain domain, final URI modelUri,
-      final GPoint enumerationPosition) {
+   public AddEnumerationCompoundCommand(final EditingDomain domain, final URI modelUri, final GPoint enumerationPosition) {
 
-      // Chain semantic and notation command
       Enumeration newEnumeration = UMLFactory.eINSTANCE.createEnumeration();
       this.append(new AddEnumerationCommand(domain, modelUri, newEnumeration));
-      this.append(new AddEnumerationShapeCommand(domain, modelUri, enumerationPosition, newEnumeration));
-
+      this.append(new AddEnumerationShapeCommand(domain, modelUri, newEnumeration, enumerationPosition));
    }
 
 }

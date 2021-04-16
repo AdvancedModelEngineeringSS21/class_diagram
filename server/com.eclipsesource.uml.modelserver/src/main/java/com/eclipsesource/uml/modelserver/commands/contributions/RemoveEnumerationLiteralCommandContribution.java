@@ -17,25 +17,28 @@ import org.eclipse.emfcloud.modelserver.command.CCommand;
 import org.eclipse.emfcloud.modelserver.command.CCommandFactory;
 import org.eclipse.emfcloud.modelserver.common.codecs.DecodingException;
 
-import com.eclipsesource.uml.modelserver.commands.semantic.AddEnumerationLiteralCommand;
+import com.eclipsesource.uml.modelserver.commands.semantic.RemoveEnumerationLiteralCommand;
 
-public class AddEnumerationLiteralCommandContribution extends UmlSemanticCommandContribution {
+public class RemoveEnumerationLiteralCommandContribution extends UmlSemanticCommandContribution {
 
-   public static final String TYPE = "addEnumerationLiteralContributuion";
+   public static final String TYPE = "removeEnumerationLiteral";
 
-   public static CCommand create(final String parentSemanticUri) {
-      CCommand addEnumerationLiteralCommand = CCommandFactory.eINSTANCE.createCommand();
-      addEnumerationLiteralCommand.setType(TYPE);
-      addEnumerationLiteralCommand.getProperties().put(PARENT_SEMANTIC_URI_FRAGMENT, parentSemanticUri);
-      return addEnumerationLiteralCommand;
+   public static CCommand create(final String parentSemanticUri, final String semanticUri) {
+      CCommand removeLiteralCommand = CCommandFactory.eINSTANCE.createCommand();
+      removeLiteralCommand.setType(TYPE);
+      removeLiteralCommand.getProperties().put(PARENT_SEMANTIC_URI_FRAGMENT, parentSemanticUri);
+      removeLiteralCommand.getProperties().put(SEMANTIC_URI_FRAGMENT, semanticUri);
+      return removeLiteralCommand;
    }
 
    @Override
    protected Command toServer(final URI modelUri, final EditingDomain domain, final CCommand command)
       throws DecodingException {
 
-      String parentSemanticUriFragment = command.getProperties().get(PARENT_SEMANTIC_URI_FRAGMENT);
-      return new AddEnumerationLiteralCommand(domain, modelUri, parentSemanticUriFragment);
+      String parentSemanticUri = command.getProperties().get(PARENT_SEMANTIC_URI_FRAGMENT);
+      String semanticUri = command.getProperties().get(SEMANTIC_URI_FRAGMENT);
+
+      return new RemoveEnumerationLiteralCommand(domain, modelUri, parentSemanticUri, semanticUri);
    }
 
 }

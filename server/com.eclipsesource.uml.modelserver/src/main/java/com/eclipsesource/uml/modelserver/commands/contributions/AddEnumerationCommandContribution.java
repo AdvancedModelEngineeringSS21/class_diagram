@@ -24,7 +24,7 @@ import com.eclipsesource.uml.modelserver.commands.util.UmlNotationCommandUtil;
 
 public class AddEnumerationCommandContribution extends UmlCompoundCommandContribution {
 
-   public static final String TYPE = "addEnumerationContribution";
+   public static final String TYPE = "addEnumerationContributuion";
 
    public static CCompoundCommand create(final GPoint position) {
       CCompoundCommand addEnumerationCommand = CCommandFactory.eINSTANCE.createCompoundCommand();

@@ -13,28 +13,30 @@ package com.eclipsesource.uml.modelserver.commands.semantic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.uml2.uml.Enumeration;
-import org.eclipse.uml2.uml.UMLFactory;
+import org.eclipse.uml2.uml.EnumerationLiteral;
 
 import com.eclipsesource.uml.modelserver.commands.util.UmlSemanticCommandUtil;
 
-public class AddEnumerationCommand extends UmlSemanticElementCommand {
+public class RemoveEnumerationLiteralCommand extends UmlSemanticElementCommand {
 
-   protected final Enumeration newEnumeration;
+   protected final String parentSemanticUriFragment;
+   protected final String semanticUriFragment;
 
-   public AddEnumerationCommand(final EditingDomain domain, final URI modelUri,
-      final Enumeration newEnumeration) {
+   public RemoveEnumerationLiteralCommand(final EditingDomain domain, final URI modelUri,
+      final String parentSemanticUriFragment,
+      final String semanticUriFragment) {
       super(domain, modelUri);
-      this.newEnumeration = newEnumeration;
-   }
-
-   public AddEnumerationCommand(final EditingDomain domain, final URI modelUri) {
-      this(domain, modelUri, UMLFactory.eINSTANCE.createEnumeration());
+      this.parentSemanticUriFragment = parentSemanticUriFragment;
+      this.semanticUriFragment = semanticUriFragment;
    }
 
    @Override
    protected void doExecute() {
-      newEnumeration.setName(UmlSemanticCommandUtil.getNewEnumerationName(umlModel));
-      umlModel.getPackagedElements().add(newEnumeration);
+      Enumeration parentEnumeration = UmlSemanticCommandUtil.getElement(umlModel, parentSemanticUriFragment,
+         Enumeration.class);
+      EnumerationLiteral literalToRemove = UmlSemanticCommandUtil.getElement(umlModel, semanticUriFragment,
+         EnumerationLiteral.class);
+      parentEnumeration.getOwnedLiterals().remove(literalToRemove);
    }
 
 }

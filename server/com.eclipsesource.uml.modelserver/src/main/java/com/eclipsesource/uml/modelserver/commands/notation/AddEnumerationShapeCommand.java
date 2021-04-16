@@ -26,7 +26,7 @@ public class AddEnumerationShapeCommand extends UmlNotationElementCommand {
    protected String semanticProxyUri;
    protected Enumeration newEnumeration;
 
-   private AddEnumerationShapeCommand(final EditingDomain domain, final URI modelUri, final GPoint position) {
+   public AddEnumerationShapeCommand(final EditingDomain domain, final URI modelUri, final GPoint position) {
       super(domain, modelUri);
       this.shapePosition = position;
       this.newEnumeration = null;
@@ -39,16 +39,16 @@ public class AddEnumerationShapeCommand extends UmlNotationElementCommand {
       this.semanticProxyUri = semanticProxyUri;
    }
 
-   public AddEnumerationShapeCommand(final EditingDomain domain, final URI modelUri, final GPoint position,
-      final Enumeration newEnumeration) {
+   public AddEnumerationShapeCommand(final EditingDomain domain, final URI modelUri, final Enumeration newEnumeration,
+      final GPoint position) {
       this(domain, modelUri, position);
       this.newEnumeration = newEnumeration;
    }
 
    @Override
    protected void doExecute() {
-      Shape newSpape = UnotationFactory.eINSTANCE.createShape();
-      newSpape.setPosition(shapePosition);
+      Shape newShape = UnotationFactory.eINSTANCE.createShape();
+      newShape.setPosition(this.shapePosition);
 
       SemanticProxy proxy = UnotationFactory.eINSTANCE.createSemanticProxy();
       if (this.semanticProxyUri != null && this.newEnumeration == null) {
@@ -56,10 +56,9 @@ public class AddEnumerationShapeCommand extends UmlNotationElementCommand {
       } else {
          proxy.setUri(UmlNotationCommandUtil.getSemanticProxyUri(newEnumeration));
       }
-      newSpape.setSemanticElement(proxy);
+      newShape.setSemanticElement(proxy);
 
-      umlDiagram.getElements().add(newSpape);
-
+      umlDiagram.getElements().add(newShape);
    }
 
 }

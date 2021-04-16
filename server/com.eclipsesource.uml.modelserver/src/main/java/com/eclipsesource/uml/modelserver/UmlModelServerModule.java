@@ -30,10 +30,12 @@ import com.eclipsesource.uml.modelserver.commands.contributions.ChangeRoutingPoi
 import com.eclipsesource.uml.modelserver.commands.contributions.RemoveAssociationCommandContribution;
 import com.eclipsesource.uml.modelserver.commands.contributions.RemoveClassCommandContribution;
 import com.eclipsesource.uml.modelserver.commands.contributions.RemoveEnumerationCommandContribution;
+import com.eclipsesource.uml.modelserver.commands.contributions.RemoveEnumerationLiteralCommandContribution;
 import com.eclipsesource.uml.modelserver.commands.contributions.RemovePropertyCommandContribution;
 import com.eclipsesource.uml.modelserver.commands.contributions.SetAssociationEndMultiplicityCommandContribution;
 import com.eclipsesource.uml.modelserver.commands.contributions.SetAssociationEndNameCommandContribution;
 import com.eclipsesource.uml.modelserver.commands.contributions.SetClassNameCommandContribution;
+import com.eclipsesource.uml.modelserver.commands.contributions.SetEnumerationLiteralCommandContribution;
 import com.eclipsesource.uml.modelserver.commands.contributions.SetEnumerationNameCommandContribution;
 import com.eclipsesource.uml.modelserver.commands.contributions.SetPropertyCommandContribution;
 
@@ -72,12 +74,14 @@ public class UmlModelServerModule extends DefaultModelServerModule {
       binding.put(ChangeBoundsCommandContribution.TYPE, ChangeBoundsCommandContribution.class);
       // ChangeRoutingPoints
       binding.put(ChangeRoutingPointsCommandContribution.TYPE, ChangeRoutingPointsCommandContribution.class);
-      // UML enumeration
+      // UML Enumeration
       binding.put(AddEnumerationCommandContribution.TYPE, AddEnumerationCommandContribution.class);
       binding.put(RemoveEnumerationCommandContribution.TYPE, RemoveEnumerationCommandContribution.class);
       binding.put(SetEnumerationNameCommandContribution.TYPE, SetEnumerationNameCommandContribution.class);
+      // UML EnumerationLiteral
       binding.put(AddEnumerationLiteralCommandContribution.TYPE, AddEnumerationLiteralCommandContribution.class);
-
+      binding.put(RemoveEnumerationLiteralCommandContribution.TYPE, RemoveEnumerationLiteralCommandContribution.class);
+      binding.put(SetEnumerationLiteralCommandContribution.TYPE, SetEnumerationLiteralCommandContribution.class);
    }
 
    @Override

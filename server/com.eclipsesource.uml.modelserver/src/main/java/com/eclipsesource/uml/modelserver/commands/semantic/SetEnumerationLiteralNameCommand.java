@@ -12,29 +12,27 @@ package com.eclipsesource.uml.modelserver.commands.semantic;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.edit.domain.EditingDomain;
-import org.eclipse.uml2.uml.Enumeration;
-import org.eclipse.uml2.uml.UMLFactory;
+import org.eclipse.uml2.uml.EnumerationLiteral;
 
 import com.eclipsesource.uml.modelserver.commands.util.UmlSemanticCommandUtil;
 
-public class AddEnumerationCommand extends UmlSemanticElementCommand {
+public class SetEnumerationLiteralNameCommand extends UmlSemanticElementCommand {
 
-   protected final Enumeration newEnumeration;
+   protected String semanticUriFragment;
+   protected String newName;
 
-   public AddEnumerationCommand(final EditingDomain domain, final URI modelUri,
-      final Enumeration newEnumeration) {
+   public SetEnumerationLiteralNameCommand(final EditingDomain domain, final URI modelUri,
+      final String semanticUriFragment, final String newName) {
       super(domain, modelUri);
-      this.newEnumeration = newEnumeration;
-   }
-
-   public AddEnumerationCommand(final EditingDomain domain, final URI modelUri) {
-      this(domain, modelUri, UMLFactory.eINSTANCE.createEnumeration());
+      this.semanticUriFragment = semanticUriFragment;
+      this.newName = newName;
    }
 
    @Override
    protected void doExecute() {
-      newEnumeration.setName(UmlSemanticCommandUtil.getNewEnumerationName(umlModel));
-      umlModel.getPackagedElements().add(newEnumeration);
+      EnumerationLiteral enumLiteral = UmlSemanticCommandUtil.getElement(umlModel, semanticUriFragment,
+         EnumerationLiteral.class);
+      enumLiteral.setName(newName);
    }
 
 }

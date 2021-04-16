@@ -30,9 +30,8 @@ public class SetEnumerationNameCommand extends UmlSemanticElementCommand {
 
    @Override
    protected void doExecute() {
-      Enumeration enumerationToRename = UmlSemanticCommandUtil.getElement(umlModel, semanticUriFragment,
-         Enumeration.class);
-      enumerationToRename.setName(newName);
+      Enumeration enumToRename = UmlSemanticCommandUtil.getElement(umlModel, semanticUriFragment, Enumeration.class);
+      enumToRename.setName(newName);
    }
 
 }

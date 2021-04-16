@@ -102,6 +102,10 @@ public final class UmlSemanticCommandUtil {
       return UmlSemanticCommandUtil.getNewPackageableElementName(Enumeration.class, umlModel);
    }
 
+   public static String getNewEnumerationLiteralName(final Model umlModel) {
+      return UmlSemanticCommandUtil.getNewPackageableElementName(EnumerationLiteral.class, umlModel);
+   }
+
    private static String getNewPackageableElementName(final java.lang.Class<? extends PackageableElement> umlClassifier,
       final Model umlModel) {
       Function<Integer, String> nameProvider = i -> "New" + umlClassifier.getSimpleName() + i;
@@ -132,10 +136,6 @@ public final class UmlSemanticCommandUtil {
          result = multiplicityString.split(multiplicityRegex())[index];
       }
       return result.isEmpty() ? 1 : (result.equals("*") ? -1 : Integer.parseInt(result, 10));
-   }
-
-   public static String getNewEnumerationLiteralName(final Model umlModel) {
-      return UmlSemanticCommandUtil.getNewPackageableElementName(EnumerationLiteral.class, umlModel);
    }
 
 }

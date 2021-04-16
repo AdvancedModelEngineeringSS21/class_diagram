@@ -29,30 +29,28 @@ public class LabelFactory extends AbstractGModelFactory<NamedElement, GLabel> {
    @Override
    public GLabel create(final NamedElement namedElement) {
       if (namedElement instanceof Property) {
-         return create((Property) namedElement);
-      } else if (namedElement instanceof EnumerationLiteral) {
-         return create((EnumerationLiteral) namedElement);
+         return createPropertyLabel((Property) namedElement);
       }
       return null;
    }
 
-   public GLabel create(final Property property) {
-      String label = property.getName()//
-         .concat(UmlLabelUtil.getTypeName(property))//
+   protected GLabel createPropertyLabel(final Property property) {
+      String label = property.getName()
+         .concat(UmlLabelUtil.getTypeName(property))
          .concat(UmlLabelUtil.getMultiplicity(property));
 
-      return new GLabelBuilder(Types.PROPERTY) //
-         .id(toId(property))//
-         .text(label) //
+      return new GLabelBuilder(Types.PROPERTY)
+         .id(toId(property))
+         .text(label)
          .build();
    }
 
-   public GLabel create(final EnumerationLiteral enumerationLiteral) {
-      String label = enumerationLiteral.getName();//
+   public GLabel createEnumLiteralLabel(final EnumerationLiteral enumerationLiteral) {
+      String label = enumerationLiteral.getName();
 
-      return new GLabelBuilder(Types.ENUMERATION_LITERAL) //
-         .id(toId(enumerationLiteral))//
-         .text(label) //
+      return new GLabelBuilder(Types.ENUMERATION_LITERAL)
+         .id(toId(enumerationLiteral))
+         .text(label)
          .build();
    }
 

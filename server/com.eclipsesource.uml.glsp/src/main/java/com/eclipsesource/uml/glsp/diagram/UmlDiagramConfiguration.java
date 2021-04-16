@@ -74,7 +74,6 @@ public class UmlDiagramConfiguration implements DiagramConfiguration {
       // UML Enumeration
       mappings.put(Types.ICON_ENUMERATION, GraphPackage.Literals.GCOMPARTMENT);
       mappings.put(Types.ENUMERATION, GraphPackage.Literals.GNODE);
-      // UML EnumerationLiteral
       mappings.put(Types.ENUMERATION_LITERAL, GraphPackage.Literals.GLABEL);
       return mappings;
    }
